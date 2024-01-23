@@ -30,9 +30,9 @@ const Greeting = (props: GreetingProps) => {
 const App = () => {
   return (
     <View style={styles.container}>
-      <Greeting firstName="Rexxar A" />
-      <Greeting firstName="Jaina B" />
-      <Greeting firstName="Valeera C" />
+      <Greeting firstName="Rexxar AA" />
+      <Greeting firstName="Jaina BB" />
+      <Greeting firstName="Valeera CC" />
       <Button
         onPress={() => Alert.alert('You need to implement delegate')}
         title="Reset All"
