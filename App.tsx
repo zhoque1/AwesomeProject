@@ -6,6 +6,7 @@
  */
 import React, {useState} from 'react';
 import {Alert, Button, StyleSheet, Text, View} from 'react-native';
+import BookComponent from "./app/presentation/components/BookComponent";
 
 type GreetingProps = {
   firstName: string;
@@ -30,13 +31,14 @@ const Greeting = (props: GreetingProps) => {
 const App = () => {
   return (
     <View style={styles.container}>
-      <Greeting firstName="Rexxar A" />
-      <Greeting firstName="Jaina B" />
-      <Greeting firstName="Valeera C" />
+      <Greeting firstName="Rexxar AA" />
+      <Greeting firstName="Jaina BB" />
+      <Greeting firstName="Valeera CC" />
       <Button
         onPress={() => Alert.alert('You need to implement delegate')}
         title="Reset All"
       />
+        <BookComponent/>
     </View>
   );
 };
