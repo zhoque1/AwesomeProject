@@ -1,0 +1,11 @@
+ {
+    "nav" :{
+        "TabA" : "TabA",
+        "TabB" : "TabB"
+    },
+    "profile" : {
+        "login" : "Log in",
+        "logout" : "Logout"
+    }
+
+}
