@@ -4,55 +4,32 @@
  *
  * @format
  */
-import React, {useState} from 'react';
+import React from 'react';
+import * as eva from '@eva-design/eva';
 import {Alert, Button, StyleSheet, Text, View} from 'react-native';
-import BookComponent from "./app/presentation/components/BookComponent";
-
-type GreetingProps = {
-  firstName: string;
-};
-
-const Greeting = (props: GreetingProps) => {
-  const [count, setCount] = useState(0);
-
-  return (
-    <View style={styles.greeting}>
-      <Text
-        onPress={() => {
-          setCount(count + 1);
-          console.log('clicked');
-        }}>
-        You clicked {props.firstName} {count} times
-      </Text>
-    </View>
-  );
-};
+import {ApplicationProvider, IconRegistry} from "@ui-kitten/components";
+import {EvaIconsPack} from "@ui-kitten/eva-icons";
+import AppRootNav from "./app/presentation/navigation/AppRootNav";
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Greeting firstName="Rexxar AA" />
-      <Greeting firstName="Jaina BB" />
-      <Greeting firstName="Valeera CC" />
-      <Button
-        onPress={() => Alert.alert('You need to implement delegate')}
-        title="Reset All"
-      />
-        <BookComponent/>
-    </View>
+      <ApplicationProvider {...eva} theme={eva.light}>
+          <IconRegistry icons={EvaIconsPack} />
+          <AppRootNav />
+      </ApplicationProvider>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  greeting: {
-    margin: 10,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    greeting: {
+        margin: 10,
+    },
 });
 
 export default App;
