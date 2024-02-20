@@ -43,7 +43,7 @@ const ScreenA = ({ navigation }: { navigation:any }) => {
                     style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
                 >
                     <Text style={styles.text}>
-                        Go to Screen C
+                        Screen C with bottom tab
                     </Text>
                 </Pressable>
             </View>
