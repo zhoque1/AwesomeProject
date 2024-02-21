@@ -1,8 +1,6 @@
 import Placards from "../../domain/models/Placards";
-import {IGetPlacardsUseCase} from "../../domain/useCases/GetPlacardsUseCase";
-import {PlacardsRequest} from "../../dada/entities/PlacardsRequest";
-import {PlacardsRepository} from "../../dada/repositories/PlacardsRepository";
-import Api from "../../dada/dataSources/network/api";
+import {IGetPlacardsUseCase} from "../../domain/usecases/IGetPlacardsUseCase";
+import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
 
 export interface IPlacardsViewModel{
     getPlacards(
@@ -22,7 +20,7 @@ export const PlacardsViewModel = (
             page,
             limit
         }
-        return getPlacardsUseCase.execute(request, PlacardsRepository(Api()))
+        return getPlacardsUseCase.execute(request)
     }
 
     return {

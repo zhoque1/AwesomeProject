@@ -1,15 +1,12 @@
 
 import Placards from "../../domain/models/Placards";
 import {IApi} from "../dataSources/network/api.interface";
-import {PlacardsRequest} from "../entities/PlacardsRequest";
-import {PlacardsResponse} from "../entities/PlacardsResponse";
+import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
+import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
 import Config from "react-native-config";
 import {MapPlacardsDataToModel} from "./PlacardsMapper";
+import {IPlacardsRepository} from "../../domain/repositories/IPlacardsRepository";
 
-
-export interface IPlacardsRepository{
-    getPlacards(request: PlacardsRequest, signal?: AbortSignal): Promise<Placards | null>;
-}
 
 export const PlacardsRepository = (api: IApi): IPlacardsRepository => {
     const getPlacards = async (

@@ -1,8 +1,9 @@
 import {asFunction, createContainer, InjectionMode} from "awilix";
 import Api from "../dataSources/network/api";
 import {PlacardsRepository} from "../repositories/PlacardsRepository";
-import {GetPlacardsUseCase} from "../../domain/useCases/GetPlacardsUseCase";
+
 import {PlacardsViewModel} from "../../presentation/viewmodels/PlacardsViewModel";
+import {GetPlacardsUseCase} from "../usecases/GetPlacardsUseCase";
 
 const DiConstants = {
     API: 'api',
@@ -15,8 +16,14 @@ const injectionContainer = createContainer({injectionMode: InjectionMode.PROXY})
 
 injectionContainer.register({
     [DiConstants.API]: asFunction(Api).singleton(),
-    [DiConstants.PLACARDS_REPO]: asFunction(PlacardsRepository).singleton(),
-    [DiConstants.GET_PLACARDS_USE_CASE]: asFunction(GetPlacardsUseCase),
+    [DiConstants.PLACARDS_REPO]: asFunction(
+        ({[DiConstants.API]: api}) =>
+        PlacardsRepository(api)
+    ).singleton(),
+    [DiConstants.GET_PLACARDS_USE_CASE]: asFunction(
+        ({[DiConstants.PLACARDS_REPO]: placardsRepo}) =>
+        GetPlacardsUseCase(placardsRepo)
+    ).singleton(),
     [DiConstants.PLACARDS_VIEW_MODEL]: asFunction(
         ({ [DiConstants.GET_PLACARDS_USE_CASE]: getPlacardsUseCase }) =>
             PlacardsViewModel(getPlacardsUseCase)
