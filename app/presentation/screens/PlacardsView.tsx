@@ -8,9 +8,9 @@ import {
 import BookComponent from "../components/BookComponent";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
 import {QueryClient, QueryClientProvider, useQuery, useSuspenseQuery} from "@tanstack/react-query";
-import {DiConstants, inject} from "../../dada/module/di";
+import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/PlacardsViewModel";
-import {QueryConstants} from "../../dada/module/QueryContants";
+import {QueryConstants} from "../../di/QueryContants";
 
 
 

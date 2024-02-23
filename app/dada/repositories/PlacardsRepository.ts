@@ -22,7 +22,7 @@ export const PlacardsRepository = (api: IApi): IPlacardsRepository => {
             { signal }
         )
 
-        console.log('Result1 = '+ JSON.stringify(placardsResult))
+        // console.log('Result1 = '+ JSON.stringify(placardsResult))
 
         return MapPlacardsDataToModel(placardsResult)
     }

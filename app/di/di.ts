@@ -1,9 +1,9 @@
 import {asFunction, createContainer, InjectionMode} from "awilix";
-import Api from "../dataSources/network/api";
-import {PlacardsRepository} from "../repositories/PlacardsRepository";
+import Api from "../dada/dataSources/network/api";
+import {PlacardsRepository} from "../dada/repositories/PlacardsRepository";
 
-import {PlacardsViewModel} from "../../presentation/viewmodels/PlacardsViewModel";
-import {GetPlacardsUseCase} from "../usecases/GetPlacardsUseCase";
+import {PlacardsViewModel} from "../presentation/viewmodels/PlacardsViewModel";
+import {GetPlacardsUseCase} from "../dada/usecases/GetPlacardsUseCase";
 
 const DiConstants = {
     API: 'api',
