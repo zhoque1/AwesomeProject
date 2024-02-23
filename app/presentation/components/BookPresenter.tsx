@@ -1,5 +1,5 @@
 import {BookRepositoryImpl} from "../../domain/models/bookrepositoryimpl";
-import {BookServiceImpl} from "../../domain/useCases/BookUseCase";
+import {BookServiceImpl} from "../../domain/usecases/BookUseCase";
 
 function getSampleBookData() {
     let bookRepository = new BookRepositoryImpl();
