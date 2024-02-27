@@ -2,8 +2,8 @@ import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
 import Placards from "../../domain/models/Placards";
 import Placard from "../../domain/models/Placard";
 
-export const MapPlacardsDataToModel = (data: PlacardsResponse): Placards =>{
-    const placardArray: Placard[] | undefined = data.data?.placards?.map(
+export const MapPlacardsDataToModel = (response: PlacardsResponse): Placards =>{
+    const placardArray: Placard[] | undefined = response.data?.map(
         placardResponse => {
             return new Placard(
                 placardResponse.id,
@@ -14,7 +14,7 @@ export const MapPlacardsDataToModel = (data: PlacardsResponse): Placards =>{
             );
         },
     );
-    const placardsModels = placardArray ?? null
-
-    return new Placards(placardsModels)
+    const placards = placardArray ?? null
+console.log("placards = "+ JSON.stringify(placards))
+    return new Placards(placards)
 }

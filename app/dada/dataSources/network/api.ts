@@ -25,7 +25,7 @@ const getAppToken = async () => {
 };
 
 const instance = axios.create({
-  baseURL: '', //Config.baseUrl,
+  baseURL: Config.BASE_URL,
   headers: defaultHeaders,
   validateStatus: function (status) {
     // Only resolve this promise if the status falls into one of these codes

@@ -17,7 +17,7 @@ export const PlacardsRepository = (api: IApi): IPlacardsRepository => {
         console.log('Repository: '+ JSON.stringify(request))
 
         const placardsResult: PlacardsResponse = await api.get(
-            `https://picsum.photos/v2/list?page=1&&limit=1`,
+            `/v2/list?page=${request.page}&&limit=${request.limit}`,
             false,
             { signal }
         )

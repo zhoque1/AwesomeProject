@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView,
+    Pressable, Button, Alert, SafeAreaView, ActivityIndicator,
 } from 'react-native';
 import BookComponent from "../components/BookComponent";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
@@ -11,6 +11,7 @@ import {QueryClient, QueryClientProvider, useQuery, useSuspenseQuery} from "@tan
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/PlacardsViewModel";
 import {QueryConstants} from "../../di/QueryContants";
+import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
 
 
 
@@ -29,6 +30,10 @@ const queryClient = new QueryClient({
 
 
 const ScreenD = ({ navigation }: { navigation:any }) => {
+    const page = React.useRef<number>(1)
+    const [placardsResponse, setPlacardsResponse]
+        = React.useState<PlacardsResponse>({data: []})
+    const [hasMoreData, setHasMoreData] = React.useState(true);
     const BackIcon = (props:any) => (
         <Icon {...props} name='arrow-back' />
     );
@@ -36,24 +41,29 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         <TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
     );
 
-    // const { isLoading, error, data } = useQuery({
-    //     queryKey: ['repoData'],
-    //     queryFn: () =>
-    //         fetch('https://api.github.com/repos/TanStack/query').then((res) =>
-    //             res.json(),
-    //         ),
-    // })
-
     const { data, refetch } = useSuspenseQuery({
         queryKey: [QueryConstants.GET_PLACARDS],
-        queryFn: () => placardsViewModel.getPlacards(2, 10)
+        queryFn: () => placardsViewModel.getPlacards(page.current, 10)
         },
         queryClient,
     )
 
     React.useEffect(() => {
         if((data?.placards?.length ?? 0) > 0){
-            console.log('PageLength: ')
+            // console.log('placards ======= '+ JSON.stringify(data?.placards))
+            if(page.current > 1){
+                setPlacardsResponse({
+                    data: [
+                        ...(placardsResponse.data as []),
+                        ...data!.placards!,
+                    ]
+                })
+            } else {
+                setPlacardsResponse({data: data!.placards})
+            }
+            page.current = page.current + 1
+        } else {
+            setHasMoreData(false)
         }
     }, [data])
 
@@ -66,12 +76,20 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
                     <Text>
                         Wait placards are loading
                     </Text>
-
                 </View>
+
             </SafeAreaView>
         </Layout>
     )
 }
+
+const LoadingData = () => {
+    return (
+        <View>
+            <ActivityIndicator size="large" />
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
