@@ -4,6 +4,7 @@ export default class Placard{
     private _width: number;
     private _height: number;
     private _url: string | null;
+    private _download_url: string | null;
 
     constructor(
         id: number,
@@ -11,12 +12,14 @@ export default class Placard{
         width: number,
         height: number,
         url: string | null,
+        download_url: string | null
     ) {
         this._id = id;
         this._author = author;
         this._width = width;
         this._height = height;
         this._url = url;
+        this._download_url = download_url;
     }
 
     public get id(): number{
@@ -37,5 +40,9 @@ export default class Placard{
 
     public get url(): string | null{
         return this._url;
+    }
+
+    public get download_url(): string | null{
+        return this._download_url;
     }
 }

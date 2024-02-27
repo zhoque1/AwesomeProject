@@ -4,4 +4,5 @@ export type PlacardResponse = {
     width: number;
     height: number;
     url: string | null;
+    download_url: string | null;
 }

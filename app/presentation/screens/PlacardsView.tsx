@@ -81,7 +81,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
                     <Image
                         style={{ height: 230, width: '100%' }}
                         resizeMode="cover"
-                        source={{ uri: item.url?.toString() }}
+                        source={{ uri: item.download_url?.toString() }}
                     />
                     <View style={{ margin: 16 }}>
                         <Text

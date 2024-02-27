@@ -11,6 +11,7 @@ export const MapPlacardsDataToModel = (response: PlacardsResponse): Placards =>{
                 placardResponse.width,
                 placardResponse.height,
                 placardResponse.url,
+                placardResponse.download_url,
             );
         },
     );
