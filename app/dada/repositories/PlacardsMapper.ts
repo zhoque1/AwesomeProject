@@ -16,6 +16,6 @@ export const MapPlacardsDataToModel = (response: PlacardsResponse): Placards =>{
         },
     );
     const placards = placardArray ?? null
-console.log("placards = "+ JSON.stringify(placards))
+    // console.log("placards = "+ JSON.stringify(placards))
     return new Placards(placards)
 }

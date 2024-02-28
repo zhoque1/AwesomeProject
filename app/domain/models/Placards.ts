@@ -10,4 +10,8 @@ export default class Placards{
     public get placards(): Placard[] | null {
         return this._placards
     }
+
+    public set placards(placards: Placard[] | null){
+        this._placards = placards
+    }
 }

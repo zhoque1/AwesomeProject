@@ -15,6 +15,7 @@ import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
 import Placard from "../../domain/models/Placard";
 import Image = Animated.Image;
 import {PlacardResponse} from "../../domain/entities/PlacardResponse";
+import Placards from "../../domain/models/Placards";
 
 
 
@@ -38,6 +39,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         = React.useState<PlacardsResponse>({data: []})
     const list = React.useRef<List>(null);
     const [hasMoreData, setHasMoreData] = React.useState(true);
+    const [isPending, startTransition] = React.useTransition();
     const BackIcon = (props:any) => (
         <Icon {...props} name='arrow-back' />
     );
@@ -71,17 +73,23 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         }
     }, [data])
 
+    function handleRefetch() {
+        startTransition(() => {
+            refetch();
+        });
+    }
+
     const renderArticleView = ({ item }: { item: PlacardResponse }) => {
         return (
             <TouchableOpacity
                 key={item.id}
-                style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16 }]}
+                style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
                 >
                 <View style={[styles.card]}>
                     <Image
-                        style={{ height: 230, width: '100%' }}
+                        style={{ height: 230 }}
                         resizeMode="cover"
-                        source={{ uri: item.download_url?.toString() }}
+                        source={{ uri: item.download_url?? "" }}
                     />
                     <View style={{ margin: 16 }}>
                         <Text
@@ -102,18 +110,39 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         <Layout style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <TopNavigation title={'Placards'} accessoryLeft={accessoryLeft} alignment="center" />
-                <View style={styles.container}>
-                    <Text>
-                        Wait placards are loading
-                    </Text>
-                    <List
-                        ref={list}
-                        style={{ backgroundColor: 'rgba(0,0,0,0)' }}
-                        data={placardsResponse?.data}
-                        renderItem={renderArticleView}
-                    />
-                </View>
+                <QueryClientProvider client={queryClient}>
+                    <Suspense fallback={<LoadingData />}>
 
+                        <View style={styles.container}>
+                            {/*<Text>*/}
+                            {/*    Wait placards are loading jkhgkjghkj kjhgkjgkjh jhgkjhgkjhgk kjhgkjhgkjhg*/}
+                            {/*</Text>*/}
+                            {/*<View*/}
+                            {/*    style={{*/}
+                            {/*        width: '100%',*/}
+                            {/*        height: '15%',*/}
+                            {/*        backgroundColor: 'powderblue',*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                            {/*<View*/}
+                            {/*    style={{*/}
+                            {/*        width: '66%',*/}
+                            {/*        height: '15%',*/}
+                            {/*        backgroundColor: 'skyblue',*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                            <List
+                                ref={list}
+                                style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
+                                data={placardsResponse?.data}
+                                renderItem={renderArticleView}
+                                onEndReached={async () =>{
+                                    hasMoreData && handleRefetch()
+                                }}
+                            />
+                        </View>
+                    </Suspense>
+                </QueryClientProvider>
             </SafeAreaView>
         </Layout>
     )
@@ -147,6 +176,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     card: {
+        width: '100%',
         borderRadius: 10,
         overflow: 'hidden',
     },
