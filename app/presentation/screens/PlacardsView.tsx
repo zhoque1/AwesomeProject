@@ -5,17 +5,14 @@ import {
     Text,
     Pressable, Button, Alert, SafeAreaView, ActivityIndicator, TouchableOpacity, Animated,
 } from 'react-native';
-import BookComponent from "../components/BookComponent";
 import {Icon, Layout, List, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
 import {QueryClient, QueryClientProvider, useQuery, useSuspenseQuery} from "@tanstack/react-query";
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/PlacardsViewModel";
 import {QueryConstants} from "../../di/QueryContants";
-import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
 import Placard from "../../domain/models/Placard";
 import Image = Animated.Image;
 import {PlacardResponse} from "../../domain/entities/PlacardResponse";
-import Placards from "../../domain/models/Placards";
 
 
 
@@ -36,7 +33,7 @@ const queryClient = new QueryClient({
 const ScreenD = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
     const [placardsResponse, setPlacardsResponse]
-        = React.useState<PlacardsResponse>({data: []})
+        = React.useState<Placard[]>()
     const list = React.useRef<List>(null);
     const [hasMoreData, setHasMoreData] = React.useState(true);
     const [isPending, startTransition] = React.useTransition();
@@ -58,14 +55,12 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         if((data?.placards?.length ?? 0) > 0){
             // console.log('placards ======= '+ JSON.stringify(data?.placards))
             if(page.current > 1){
-                setPlacardsResponse({
-                    data: [
-                        ...(placardsResponse.data as []),
-                        ...data!.placards!,
-                    ]
-                })
+                setPlacardsResponse([
+                    ...(placardsResponse as []),
+                    ...data!.placards!,
+                ])
             } else {
-                setPlacardsResponse({data: data!.placards})
+                setPlacardsResponse(data!.placards!)
             }
             page.current = page.current + 1
         } else {
@@ -134,7 +129,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
                             <List
                                 ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
-                                data={placardsResponse?.data}
+                                data={placardsResponse}
                                 renderItem={renderArticleView}
                                 onEndReached={async () =>{
                                     hasMoreData && handleRefetch()

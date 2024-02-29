@@ -2,6 +2,9 @@ import Placards from "../../domain/models/Placards";
 import {IGetPlacardsUseCase} from "../../domain/usecases/IGetPlacardsUseCase";
 import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
 
+export interface IPlacardsUseCaseProps {
+    getPlacardsUseCase: IGetPlacardsUseCase
+}
 export interface IPlacardsViewModel{
     getPlacards(
         page: number,
@@ -10,7 +13,9 @@ export interface IPlacardsViewModel{
 }
 
 export const PlacardsViewModel = (
-    getPlacardsUseCase: IGetPlacardsUseCase
+        {
+            getPlacardsUseCase
+        }: IPlacardsUseCaseProps
 ): IPlacardsViewModel =>{
     const getPlacards = (
         page: number,

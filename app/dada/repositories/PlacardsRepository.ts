@@ -7,8 +7,15 @@ import Config from "react-native-config";
 import {MapPlacardsDataToModel} from "./PlacardsMapper";
 import {IPlacardsRepository} from "../../domain/repositories/IPlacardsRepository";
 
+export interface IAPIProps {
+    api: IApi
+}
 
-export const PlacardsRepository = (api: IApi): IPlacardsRepository => {
+export const PlacardsRepository = (
+    {
+        api
+    }: IAPIProps
+): IPlacardsRepository => {
     const getPlacards = async (
         request: PlacardsRequest,
         signal?: AbortSignal
