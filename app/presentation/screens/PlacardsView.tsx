@@ -32,7 +32,7 @@ const queryClient = new QueryClient({
 
 const ScreenD = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
-    const [placardsResponse, setPlacardsResponse]
+    const [placardsDataSource, setPlacardsDataSource]
         = React.useState<Placard[]>()
     const list = React.useRef<List>(null);
     const [hasMoreData, setHasMoreData] = React.useState(true);
@@ -55,12 +55,12 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         if((data?.placards?.length ?? 0) > 0){
             // console.log('placards ======= '+ JSON.stringify(data?.placards))
             if(page.current > 1){
-                setPlacardsResponse([
-                    ...(placardsResponse as []),
+                setPlacardsDataSource([
+                    ...(placardsDataSource as []),
                     ...data!.placards!,
                 ])
             } else {
-                setPlacardsResponse(data!.placards!)
+                setPlacardsDataSource(data!.placards!)
             }
             page.current = page.current + 1
         } else {
@@ -74,7 +74,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
         });
     }
 
-    const renderArticleView = ({ item }: { item: PlacardResponse }) => {
+    const renderArticleView = ({ item }: { item: Placard }) => {
         return (
             <TouchableOpacity
                 key={item.id}
@@ -129,7 +129,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
                             <List
                                 ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
-                                data={placardsResponse}
+                                data={placardsDataSource}
                                 renderItem={renderArticleView}
                                 onEndReached={async () =>{
                                     hasMoreData && handleRefetch()
