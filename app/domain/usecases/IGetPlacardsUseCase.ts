@@ -1,5 +1,5 @@
 import Placards from "../models/Placards";
-import {PlacardsRequest} from "../entities/PlacardsRequest";
+import {PlacardsRequest} from "../requests/PlacardsRequest";
 import {IPlacardsRepository} from "../repositories/IPlacardsRepository";
 
 export interface IGetPlacardsUseCase{

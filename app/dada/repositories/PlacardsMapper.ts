@@ -1,4 +1,4 @@
-import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
+import {PlacardsResponse} from "../entities/PlacardsResponse";
 import Placards from "../../domain/models/Placards";
 import Placard from "../../domain/models/Placard";
 

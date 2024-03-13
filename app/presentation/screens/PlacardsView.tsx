@@ -12,7 +12,6 @@ import {IPlacardsViewModel} from "../viewmodels/PlacardsViewModel";
 import {QueryConstants} from "../../di/QueryContants";
 import Placard from "../../domain/models/Placard";
 import Image = Animated.Image;
-import {PlacardResponse} from "../../domain/entities/PlacardResponse";
 
 
 

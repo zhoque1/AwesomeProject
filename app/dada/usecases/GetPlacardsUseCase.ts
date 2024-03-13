@@ -1,4 +1,4 @@
-import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
+import {PlacardsRequest} from "../../domain/requests/PlacardsRequest";
 import Placards from "../../domain/models/Placards";
 import {IGetPlacardsUseCase} from "../../domain/usecases/IGetPlacardsUseCase";
 import {IPlacardsRepository} from "../../domain/repositories/IPlacardsRepository";
@@ -14,7 +14,6 @@ export const GetPlacardsUseCase = (
     return {
         execute: async (
             request: PlacardsRequest,
-            // repository: IPlacardsRepository,
         ): Promise<Placards | null> => {
             return await placardsRepository.getPlacards(request);
         }

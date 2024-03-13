@@ -1,9 +1,8 @@
 
 import Placards from "../../domain/models/Placards";
 import {IApi} from "../dataSources/network/api.interface";
-import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
-import {PlacardsResponse} from "../../domain/entities/PlacardsResponse";
-import Config from "react-native-config";
+import {PlacardsRequest} from "../../domain/requests/PlacardsRequest";
+import {PlacardsResponse} from "../entities/PlacardsResponse";
 import {MapPlacardsDataToModel} from "./PlacardsMapper";
 import {IPlacardsRepository} from "../../domain/repositories/IPlacardsRepository";
 

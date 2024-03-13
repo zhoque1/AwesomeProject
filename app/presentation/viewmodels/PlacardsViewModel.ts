@@ -1,6 +1,6 @@
 import Placards from "../../domain/models/Placards";
 import {IGetPlacardsUseCase} from "../../domain/usecases/IGetPlacardsUseCase";
-import {PlacardsRequest} from "../../domain/entities/PlacardsRequest";
+import {PlacardsRequest} from "../../domain/requests/PlacardsRequest";
 
 export interface IPlacardsUseCaseProps {
     getPlacardsUseCase: IGetPlacardsUseCase

@@ -1,4 +1,4 @@
-import {PlacardsRequest} from "../entities/PlacardsRequest";
+import {PlacardsRequest} from "../requests/PlacardsRequest";
 import Placards from "../models/Placards";
 
 export interface IPlacardsRepository{
