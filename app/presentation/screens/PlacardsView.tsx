@@ -29,7 +29,7 @@ const queryClient = new QueryClient({
 
 
 
-const ScreenD = ({ navigation }: { navigation:any }) => {
+const PlacardsView = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
     const [placardsDataSource, setPlacardsDataSource]
         = React.useState<Placard[]>()
@@ -78,6 +78,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
             <TouchableOpacity
                 key={item.id}
                 style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
+                onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
                 >
                 <View style={[styles.card]}>
                     <Image
@@ -92,7 +93,7 @@ const ScreenD = ({ navigation }: { navigation:any }) => {
                                 fontSize: 21,
                                 fontWeight: '700',
                             }}>
-                            {item.author}
+                            {item.author}{item.id}
                         </Text>
                     </View>
                 </View>
@@ -176,4 +177,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ScreenD;
+export default PlacardsView;
