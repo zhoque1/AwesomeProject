@@ -6,6 +6,7 @@ import ScreenD from "../screens/ScreenD";
 import PlacardsView from "../screens/PlacardsView";
 import PlacardDetailView from "../screens/PlacardDetailView";
 import {QueryClient} from "@tanstack/react-query/build/modern/index";
+import SettingsView from "../screens/SettingsView";
 
 
 
@@ -26,6 +27,7 @@ export const StackNav = () => (
         <Screen name='ScreenD' component={ScreenD} />
         <Screen name='PlacardsView' component={PlacardsView} />
         <Screen name='PlacardDetailView' component={PlacardDetailView} />
+        <Screen name='SettingsView' component={SettingsView} />
     </Navigator>
 );
 const AppRootNav = () => (

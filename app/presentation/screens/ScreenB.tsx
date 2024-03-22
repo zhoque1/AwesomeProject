@@ -1,15 +1,22 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView,
+    Pressable, Button, Alert, SafeAreaView, TextInput,
 } from 'react-native';
 import BookComponent from "../components/BookComponent";
 import {Divider, TopNavigation} from "@ui-kitten/components";
 
 
 const ScreenB = ({ navigation }: {navigation:any}) => {
+    const [settings, setSettings] = useState("");
+    useEffect(() => {
+        if(settings === 'Settings'){
+            navigation.navigate('SettingsView');
+            setSettings("")
+        }
+    }, [settings]);
     const onPressHandler = () => {
         navigation.navigate('ScreenA');
         // navigation.goBack();
@@ -24,6 +31,11 @@ const ScreenB = ({ navigation }: {navigation:any}) => {
         <SafeAreaView style={{ flex: 1 }}>
             <TopNavigation title={'ScreenB'} alignment="center" />
             <View style={styles.container}>
+                <TextInput
+                    style={styles.input}
+                    placeholder=""
+                    onChangeText={(value) => setSettings(value)}
+                />
                 <BookComponent/>
                 <Pressable
                     onPress={onPressHandler}
@@ -69,7 +81,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         margin: 10,
-    }
+    },
+    input: {
+        borderColor: "gray",
+        width: "80%",
+        borderWidth: 1,
+        borderRadius: 10,
+        padding: 10,
+    },
 });
 
 export default ScreenB;

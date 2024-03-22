@@ -6,6 +6,7 @@ import {PlacardsResponse} from "../entities/PlacardsResponse";
 import {MapPlacardsDataToModel} from "./PlacardsMapper";
 import {IPlacardsRepository} from "../../domain/repositories/IPlacardsRepository";
 import Config from "react-native-config";
+import {getDataBoolean, StorageKeys} from "../../di/StorageUtil";
 
 export interface IAPIProps {
     api: IApi
@@ -21,9 +22,11 @@ export const PlacardsRepository = (
         signal?: AbortSignal
     ):Promise<Placards | null> =>{
 
+        const isMockData = getDataBoolean(StorageKeys.USE_MOCK_DATA)
         // console.log('Repository: '+ JSON.stringify(request))
-        console.log("Mock data = "+ Config.MOCK_DATA)
-        if(Config.MOCK_DATA === "true"){
+        console.log("Mock data = "+ isMockData)
+        // if(Config.MOCK_DATA === "true"){
+        if(isMockData){
             const placards = JSON.parse( '{"data":[{"id":"5","author":"Alejandro Escamilla","width":5000,"height":3334,"url":"https://unsplash.com/photos/LF8gK8-HGSg","download_url":"https://picsum.photos/id/5/5000/3334"},' +
                 '{"id":"6","author":"Alejandro Escamilla","width":5000,"height":3333,"url":"https://unsplash.com/photos/tAKXap853rY","download_url":"https://picsum.photos/id/6/5000/3333"},' +
                 '{"id":"7","author":"Alejandro Escamilla","width":4728,"height":3168,"url":"https://unsplash.com/photos/BbQLHCpVUqA","download_url":"https://picsum.photos/id/7/4728/3168"},' +

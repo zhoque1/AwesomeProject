@@ -73,7 +73,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         });
     }
 
-    const renderArticleView = ({ item }: { item: Placard }) => {
+    const renderPlacard = ({ item }: { item: Placard }) => {
         return (
             <TouchableOpacity
                 key={item.id}
@@ -130,7 +130,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                                 ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
                                 data={placardsDataSource}
-                                renderItem={renderArticleView}
+                                renderItem={renderPlacard}
                                 onEndReached={async () =>{
                                     hasMoreData && handleRefetch()
                                 }}
