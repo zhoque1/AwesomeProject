@@ -3,7 +3,11 @@ import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView, TextInput,
+    Pressable,
+    SafeAreaView, 
+    TextInput, 
+    TouchableWithoutFeedback,
+    Keyboard
 } from 'react-native';
 import BookComponent from "../components/BookComponent";
 import {Divider, TopNavigation} from "@ui-kitten/components";
@@ -28,6 +32,7 @@ const ScreenB = ({ navigation }: {navigation:any}) => {
         navigation.navigate('PlacardsView');
     }
     return (
+        <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss() } }>
         <SafeAreaView style={{ flex: 1 }}>
             <TopNavigation title={'ScreenB'} alignment="center" />
             <View style={styles.container}>
@@ -35,6 +40,7 @@ const ScreenB = ({ navigation }: {navigation:any}) => {
                     style={styles.input}
                     placeholder=""
                     onChangeText={(value) => setSettings(value)}
+                
                 />
                 <BookComponent/>
                 <Pressable
@@ -64,6 +70,7 @@ const ScreenB = ({ navigation }: {navigation:any}) => {
                 </Pressable>
             </View>
         </SafeAreaView>
+        </TouchableWithoutFeedback>
     )
 }
 

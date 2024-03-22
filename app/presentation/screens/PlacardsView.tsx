@@ -31,6 +31,7 @@ const queryClient = new QueryClient({
 
 const PlacardsView = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
+    console.log("1Current page ======================================= "+ page.current)
     const [placardsDataSource, setPlacardsDataSource]
         = React.useState<Placard[]>()
     const list = React.useRef<List>(null);
@@ -54,11 +55,13 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         if((data?.placards?.length ?? 0) > 0){
             // console.log('placards ======= '+ JSON.stringify(data?.placards))
             if(page.current > 1){
+                console.log("2Current page ======================================= "+ page.current)
                 setPlacardsDataSource([
                     ...(placardsDataSource as []),
                     ...data!.placards!,
                 ])
             } else {
+                console.log("3Current page ======================================= "+ page.current)
                 setPlacardsDataSource(data!.placards!)
             }
             page.current = page.current + 1
