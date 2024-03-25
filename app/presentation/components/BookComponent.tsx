@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react';
 import {Text, View, Button} from 'react-native';
-import getSampleBookData from "./BookPresenter";
+import getSampleBookData from "../viewmodels/BookPresenter";
 
 const BookComponent = () => {
     const [bookName, setBookName] = useState('Untitled');

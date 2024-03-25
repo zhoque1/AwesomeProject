@@ -33,7 +33,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
     console.log("1Current page ======================================= "+ page.current)
     const [placardsDataSource, setPlacardsDataSource]
-        = React.useState<Placard[]>()
+        = React.useState<Placard[]>([])
     const list = React.useRef<List>(null);
     const [hasMoreData, setHasMoreData] = React.useState(true);
     const [isPending, startTransition] = React.useTransition();
@@ -68,6 +68,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         } else {
             setHasMoreData(false)
         }
+        console.log("placardsDataSource = "+ placardsDataSource?.length)
     }, [data])
 
     function handleRefetch() {
