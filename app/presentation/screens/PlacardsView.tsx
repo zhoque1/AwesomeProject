@@ -31,7 +31,7 @@ const queryClient = new QueryClient({
 
 const PlacardsView = ({ navigation }: { navigation:any }) => {
     const page = React.useRef<number>(1)
-    console.log("1Current page ======================================= "+ page.current)
+    // console.log("1Current page ======================================= "+ page.current)
     const [placardsDataSource, setPlacardsDataSource]
         = React.useState<Placard[]>([])
     const list = React.useRef<List>(null);
@@ -41,7 +41,10 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         <Icon {...props} name='arrow-back' />
     );
     const accessoryLeft = () => (
-        <TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
+        <TopNavigationAction icon={BackIcon} onPress={() => {
+            queryClient.removeQueries({queryKey: [QueryConstants.GET_PLACARDS]})
+            navigation.goBack()
+        }} />
     );
 
     const { data, refetch } = useSuspenseQuery({
@@ -52,23 +55,33 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
     )
 
     React.useEffect(() => {
+        // console.log("Current page ======================================= "+ page.current)
+        // console.log("placardsDataSource ======================================= "+ JSON.stringify(placardsDataSource) )
+        // console.log("data!.placards! ======================================= "+ JSON.stringify(data!.placards!) )
+        // console.log("list state ======================================= "+ JSON.stringify(list?.current?.props?.data) )
         if((data?.placards?.length ?? 0) > 0){
             // console.log('placards ======= '+ JSON.stringify(data?.placards))
+            // console.log("list state ======================================= "+ JSON.stringify(list?.current?.props?.data) )
             if(page.current > 1){
-                console.log("2Current page ======================================= "+ page.current)
+                // console.log("2Current page ======================================= "+ page.current)
                 setPlacardsDataSource([
                     ...(placardsDataSource as []),
                     ...data!.placards!,
                 ])
             } else {
-                console.log("3Current page ======================================= "+ page.current)
+                // console.log("3Current page ======================================= "+ page.current)
+                // list?.current?.scrollToOffset({animated: true, offset: 0})
+                // list?.current?.setState(null)
+                // console.log("list state ======================================= "+ JSON.stringify(list?.current?.props?.data) )
+                // data!.placards = []
                 setPlacardsDataSource(data!.placards!)
             }
+
             page.current = page.current + 1
         } else {
             setHasMoreData(false)
         }
-        console.log("placardsDataSource = "+ placardsDataSource?.length)
+        // console.log("placardsDataSource = "+ placardsDataSource?.length)
     }, [data])
 
     function handleRefetch() {
