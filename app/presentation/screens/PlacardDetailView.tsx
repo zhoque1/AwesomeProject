@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView,
+    Pressable, Button, Alert, SafeAreaView, Animated, ScrollView,
 } from 'react-native';
 import BookComponent from "../components/BookComponent";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
@@ -14,6 +14,8 @@ import {QueryConstants} from "../../di/QueryContants";
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/PlacardsViewModel";
 import {IPlacardDetailViewModel, PlacardDetailViewModel} from "../viewmodels/PlacardDetailViewModel";
+import Placard from "../../domain/models/Placard";
+import Image = Animated.Image;
 
 
 const placardDetailViewModel = inject<IPlacardDetailViewModel>(
@@ -26,13 +28,16 @@ const PlacardDetailView = (
     // const id = route?.params?.id
     // const queryClient = route?.params?.queryClient
     const {id, queryClient} = route.params
-
+    const [placard, setPlacard] = React.useState<Placard>()
     const BackIcon = (props:any) => (
         <Icon {...props} name='arrow-back' />
     );
 
     const accessoryLeft = () => (
-        <TopNavigationAction icon={BackIcon} onPress={() => navigation.goBack()} />
+        <TopNavigationAction icon={BackIcon} onPress={() => {
+            // queryClient.removeQueries({queryKey: [QueryConstants.GET_PLACARD_DETAIL]})
+            navigation.goBack()
+        }} />
     );
 
     const { data } = useSuspenseQuery({
@@ -42,19 +47,59 @@ const PlacardDetailView = (
         queryClient
     )
 
+    // React.useEffect(() =>{
+    //     console.log("test detail data ======= "+ JSON.stringify(data))
+    //     if(data){
+    //         setPlacard(data)
+    //     }
+    // },[data])
+
     return (
         <Layout style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <TopNavigation title={'PlacardDetailView'} accessoryLeft={accessoryLeft} alignment="center" />
-                <View style={styles.container}>
-                    <Text>
-                        You clicked {id.toString()}
-                    </Text>
-                    <Button
-                        onPress={() => Alert.alert('You need to implement delegate')}
-                        title="Reset All"
-                    />
-                </View>
+                <ScrollView>
+                    <View style={styles.container}>
+                        <Image
+                            style={[styles.image]}
+                            resizeMode="cover"
+                            source={{ uri: data?.download_url?? "" }}
+                        />
+                        <Text style={[styles.header]}>
+                            {data?.author}
+                        </Text>
+                        <Text style={[styles.detail]}>
+                            You clicked { data?.id?? ""}
+                        </Text>
+                        <Text style={[styles.detail]}>
+                            Width : { data?.width?? ""}
+                        </Text>
+                        <Text style={[styles.detail]}>
+                            Height : { data?.height?? ""}
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                        <Text style={[styles.summery]}>
+                            React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, state, and props. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
+                        </Text>
+                    </View>
+                </ScrollView>
             </SafeAreaView>
         </Layout>
     )
@@ -65,10 +110,23 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'center',
     },
-    greeting: {
+    header: {
+        marginTop: 10,
+        fontSize: 21,
+        fontWeight: '700',
+    },
+    detail: {
+        marginTop: 10,
+        fontSize: 16,
+    },
+    summery: {
         margin: 10,
+        fontSize: 16,
+    },
+    image: {
+        width: '100%',
+        aspectRatio: 3/2
     },
 });
 

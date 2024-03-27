@@ -124,25 +124,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                 <TopNavigation title={'Placards'} accessoryLeft={accessoryLeft} alignment="center" />
                 <QueryClientProvider client={queryClient}>
                     <Suspense fallback={<LoadingData />}>
-
                         <View style={styles.container}>
-                            {/*<Text>*/}
-                            {/*    Wait placards are loading jkhgkjghkj kjhgkjgkjh jhgkjhgkjhgk kjhgkjhgkjhg*/}
-                            {/*</Text>*/}
-                            {/*<View*/}
-                            {/*    style={{*/}
-                            {/*        width: '100%',*/}
-                            {/*        height: '15%',*/}
-                            {/*        backgroundColor: 'powderblue',*/}
-                            {/*    }}*/}
-                            {/*/>*/}
-                            {/*<View*/}
-                            {/*    style={{*/}
-                            {/*        width: '66%',*/}
-                            {/*        height: '15%',*/}
-                            {/*        backgroundColor: 'skyblue',*/}
-                            {/*    }}*/}
-                            {/*/>*/}
                             <List
                                 ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
