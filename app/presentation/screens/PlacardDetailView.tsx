@@ -55,12 +55,12 @@ const PlacardDetailView = (
     return (
         <Layout style={{ flex: 1,
             justifyContent: 'space-between',
-            alignItems: 'center',       
-            paddingTop: 35,
-            paddingBottom: 20,
+            alignItems: 'center',
+            paddingTop: insets.top,
+            paddingBottom: insets.bottom,
             paddingLeft: insets.left,
             paddingRight: insets.right,}}>
- 
+
             <SafeAreaProvider style={{ flex: 1 }}>
                 <TopNavigation title={'PlacardDetailView'} accessoryLeft={accessoryLeft} alignment="center" />
                 <ScrollView>
@@ -108,7 +108,7 @@ const PlacardDetailView = (
                         </Text>
                     </View>
                 </ScrollView>
- 
+
             </SafeAreaProvider>
         </Layout>
     )
