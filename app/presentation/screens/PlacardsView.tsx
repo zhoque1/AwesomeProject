@@ -1,9 +1,9 @@
-import React, { Suspense, useCallback, PropsWithChildren } from 'react';
+import React, {Suspense, useCallback, PropsWithChildren, memo} from 'react';
 import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView, ActivityIndicator, TouchableOpacity, Animated,
+    Pressable, Button, Alert, SafeAreaView, ActivityIndicator, TouchableOpacity, Animated, FlatList,
 } from 'react-native';
 import {Icon, Layout, List, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
 import {QueryClient, QueryClientProvider, useQuery, useSuspenseQuery} from "@tanstack/react-query";
@@ -15,6 +15,7 @@ import Image = Animated.Image;
 
 
 
+
 const placardsViewModel = inject<IPlacardsViewModel>(
     DiConstants.PLACARDS_VIEW_MODEL
 )
@@ -22,7 +23,8 @@ const placardsViewModel = inject<IPlacardsViewModel>(
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            suspense: true
+            staleTime: 300000, // 5 minutes cache
+            suspense: true,
         }
     }
 })
@@ -90,13 +92,13 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         });
     }
 
-    const renderPlacard = ({ item }: { item: Placard }) => {
+    const RenderPlacard = memo(({ item }: { item: Placard }) => {
         return (
             <TouchableOpacity
                 key={item.id}
                 style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
                 onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
-                >
+            >
                 <View style={[styles.card]}>
                     <Image
                         style={{ height: 230 }}
@@ -116,7 +118,37 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                 </View>
             </TouchableOpacity>
         );
-    };
+    }, (prevProps, nextProps) => { // and here is what i didn't notice before.
+        return prevProps.item === nextProps.item;
+    });
+    // I commented this out because I'm using memo component look that one in above
+    // const renderPlacard = ({ item }: { item: Placard }) => {
+    //     return (
+    //         <TouchableOpacity
+    //             key={item.id}
+    //             style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
+    //             onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
+    //             >
+    //             <View style={[styles.card]}>
+    //                 <Image
+    //                     style={{ height: 230 }}
+    //                     resizeMode="cover"
+    //                     source={{ uri: item.download_url?? "" }}
+    //                 />
+    //                 <View style={{ margin: 16 }}>
+    //                     <Text
+    //                         style={{
+    //                             marginTop: 10,
+    //                             fontSize: 21,
+    //                             fontWeight: '700',
+    //                         }}>
+    //                         {item.author}{item.id}
+    //                     </Text>
+    //                 </View>
+    //             </View>
+    //         </TouchableOpacity>
+    //     );
+    // };
 
     return (
         <Layout style={{ flex: 1 }}>
@@ -125,11 +157,12 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                 <QueryClientProvider client={queryClient}>
                     <Suspense fallback={<LoadingData />}>
                         <View style={styles.container}>
-                            <List
-                                ref={list}
+                            <FlatList
+                                // ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
                                 data={placardsDataSource}
-                                renderItem={renderPlacard}
+                                renderItem={({item}) => <RenderPlacard item={item} />}
+                                // renderItem={renderPlacard} I commented this out because I'm using memo component look that one in above
                                 onEndReached={async () =>{
                                     hasMoreData && handleRefetch()
                                 }}

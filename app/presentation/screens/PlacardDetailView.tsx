@@ -40,25 +40,21 @@ const PlacardDetailView = (
         }} />
     );
 
-    const { data } = useSuspenseQuery({
-        queryKey: [QueryConstants.GET_PLACARD_DETAIL],
+    const { data} = useSuspenseQuery({
+        queryKey: [QueryConstants.GET_PLACARD_DETAIL+id],
         queryFn: () => placardDetailViewModel.getPlacardDetail(id)
         },
         queryClient
     )
-
-    // React.useEffect(() =>{
-    //     console.log("test detail data ======= "+ JSON.stringify(data))
-    //     if(data){
-    //         setPlacard(data)
-    //     }
-    // },[data])
 
     return (
         <Layout style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <TopNavigation title={'PlacardDetailView'} accessoryLeft={accessoryLeft} alignment="center" />
                 <ScrollView>
+                    <Text style={[styles.detail]}>
+                        You clicked { id?? ""}
+                    </Text>
                     <View style={styles.container}>
                         <Image
                             style={[styles.image]}
