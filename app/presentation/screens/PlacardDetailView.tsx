@@ -3,8 +3,12 @@ import {
     StyleSheet,
     View,
     Text,
-    Pressable, Button, Alert, SafeAreaView, Animated, ScrollView,
+    Pressable, Button, Alert, Animated, ScrollView,
 } from 'react-native';
+import {
+    SafeAreaProvider,
+    useSafeAreaInsets,
+  } from 'react-native-safe-area-context';
 import BookComponent from "../components/BookComponent";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
 import {QueryClient, useSuspenseQuery} from "@tanstack/react-query";
@@ -24,6 +28,7 @@ const placardDetailViewModel = inject<IPlacardDetailViewModel>(
 const PlacardDetailView = (
     { route, navigation }: { route: any, navigation:any },
     ) => {
+    const insets = useSafeAreaInsets();
     // const route = useRoute<RouteProp<RootStackParamList, 'PlacardDetailView'>>()
     // const id = route?.params?.id
     // const queryClient = route?.params?.queryClient
@@ -48,8 +53,15 @@ const PlacardDetailView = (
     )
 
     return (
-        <Layout style={{ flex: 1 }}>
-            <SafeAreaView style={{ flex: 1 }}>
+        <Layout style={{ flex: 1,
+            justifyContent: 'space-between',
+            alignItems: 'center',       
+            paddingTop: 35,
+            paddingBottom: 20,
+            paddingLeft: insets.left,
+            paddingRight: insets.right,}}>
+ 
+            <SafeAreaProvider style={{ flex: 1 }}>
                 <TopNavigation title={'PlacardDetailView'} accessoryLeft={accessoryLeft} alignment="center" />
                 <ScrollView>
                     <Text style={[styles.detail]}>
@@ -96,7 +108,8 @@ const PlacardDetailView = (
                         </Text>
                     </View>
                 </ScrollView>
-            </SafeAreaView>
+ 
+            </SafeAreaProvider>
         </Layout>
     )
 }
