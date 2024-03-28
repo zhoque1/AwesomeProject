@@ -92,36 +92,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         });
     }
 
-    const RenderPlacard = memo(({ item }: { item: Placard }) => {
-        return (
-            <TouchableOpacity
-                key={item.id}
-                style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
-                onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
-            >
-                <View style={[styles.card]}>
-                    <Image
-                        style={{ height: 230 }}
-                        resizeMode="cover"
-                        source={{ uri: item.download_url?? "" }}
-                    />
-                    <View style={{ margin: 16 }}>
-                        <Text
-                            style={{
-                                marginTop: 10,
-                                fontSize: 21,
-                                fontWeight: '700',
-                            }}>
-                            {item.author}{item.id}
-                        </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-        );
-    }, (prevProps, nextProps) => { // and here is what i didn't notice before.
-        return prevProps.item === nextProps.item;
-    });
-    // I commented this out because I'm using memo component look that one in above
+    // I commented this out because I'm using memo component took out of the return. look that one at below
     // const renderPlacard = ({ item }: { item: Placard }) => {
     //     return (
     //         <TouchableOpacity
@@ -161,7 +132,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                                 // ref={list}
                                 style={{ backgroundColor: 'rgba(0,0,0,0)', width: '100%' }}
                                 data={placardsDataSource}
-                                renderItem={({item}) => <RenderPlacard item={item} />}
+                                renderItem={({item}) => <RenderPlacard item={item} navigation={navigation} />}
                                 // renderItem={renderPlacard} I commented this out because I'm using memo component look that one in above
                                 onEndReached={async () =>{
                                     hasMoreData && handleRefetch()
@@ -182,6 +153,36 @@ const LoadingData = () => {
         </View>
     );
 };
+
+const RenderPlacard = memo(({ item , navigation}: { item: Placard, navigation: any }) => {
+    return (
+        <TouchableOpacity
+            key={item.id}
+            style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
+            onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
+        >
+            <View style={[styles.card]}>
+                <Image
+                    style={{ height: 230 }}
+                    resizeMode="cover"
+                    source={{ uri: item.download_url?? "" }}
+                />
+                <View style={{ margin: 16 }}>
+                    <Text
+                        style={{
+                            marginTop: 10,
+                            fontSize: 21,
+                            fontWeight: '700',
+                        }}>
+                        {item.author}{item.id}
+                    </Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}, (prevProps, nextProps) => { // and here is what i didn't notice before.
+    return prevProps.item === nextProps.item;
+});
 
 const styles = StyleSheet.create({
     container: {
