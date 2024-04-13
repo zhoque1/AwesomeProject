@@ -9,7 +9,7 @@ import * as eva from '@eva-design/eva';
 import {Alert, Button, StyleSheet, Text, View} from 'react-native';
 import {ApplicationProvider, IconRegistry} from "@ui-kitten/components";
 import {EvaIconsPack} from "@ui-kitten/eva-icons";
-import AppRootNav from "./app/presentation/navigation/AppRootNav";
+import AppRootNav from "./app/presentation/navigation/app-root-nav";
 
 const App = () => {
   return (
