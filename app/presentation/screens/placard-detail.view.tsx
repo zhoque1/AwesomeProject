@@ -11,12 +11,13 @@ import {
   } from 'react-native-safe-area-context';
 import BookComponent from "../components/book-component";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
-import {QueryClient, useSuspenseQuery} from "@tanstack/react-query";
+import {QueryClient,useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
 import {QueryConstants} from "../../di/query-contants";
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardDetailViewModel, PlacardDetailViewmodel} from "../viewmodels/placard-detail.viewmodel";
 import Placard from "../../domain/models/placard";
 import Image = Animated.Image;
+
 
 
 const placardDetailViewModel = inject<IPlacardDetailViewModel>(
@@ -26,10 +27,11 @@ const PlacardDetailView = (
     { route, navigation }: { route: any, navigation:any },
     ) => {
     const insets = useSafeAreaInsets();
+    const queryClient = useQueryClient();
     // const route = useRoute<RouteProp<RootStackParamList, 'PlacardDetailView'>>()
     // const id = route?.params?.id
     // const queryClient = route?.params?.queryClient
-    const {id, queryClient} = route.params
+    const {id} = route.params
     const [placard, setPlacard] = React.useState<Placard>()
     const BackIcon = (props:any) => (
         <Icon {...props} name='arrow-back' />

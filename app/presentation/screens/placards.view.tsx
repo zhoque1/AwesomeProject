@@ -6,7 +6,7 @@ import {
     Pressable, Button, Alert, SafeAreaView, ActivityIndicator, TouchableOpacity, Animated, FlatList,
 } from 'react-native';
 import {Icon, Layout, List, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
-import {QueryClient, QueryClientProvider, useQuery, useSuspenseQuery} from "@tanstack/react-query";
+import {QueryClient, QueryClientProvider, useQuery, useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/placards.viewmodel";
 import {QueryConstants} from "../../di/query-contants";
@@ -20,18 +20,10 @@ const placardsViewModel = inject<IPlacardsViewModel>(
     DiConstants.PLACARDS_VIEW_MODEL
 )
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            staleTime: 300000, // 5 minutes cache
-            suspense: true,
-        }
-    }
-})
-
 
 
 const PlacardsView = ({ navigation }: { navigation:any }) => {
+    const queryClient = useQueryClient()
     const page = React.useRef<number>(1)
     // console.log("1Current page ======================================= "+ page.current)
     const [placardsDataSource, setPlacardsDataSource]
@@ -125,8 +117,7 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
         <Layout style={{ flex: 1 }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <TopNavigation title={'Placards'} accessoryLeft={accessoryLeft} alignment="center" />
-                <QueryClientProvider client={queryClient}>
-                    <Suspense fallback={<LoadingData />}>
+                <Suspense fallback={<LoadingData />}>
                         <View style={styles.container}>
                             <FlatList
                                 // ref={list}
@@ -140,7 +131,6 @@ const PlacardsView = ({ navigation }: { navigation:any }) => {
                             />
                         </View>
                     </Suspense>
-                </QueryClientProvider>
             </SafeAreaView>
         </Layout>
     )
@@ -159,7 +149,7 @@ const RenderPlacard = memo(({ item , navigation}: { item: Placard, navigation: a
         <TouchableOpacity
             key={item.id}
             style={[styles.shadowBox, { marginHorizontal: 16, marginBottom: 16}]}
-            onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id, queryClient: queryClient})}}
+            onPress={()=>{navigation.navigate('PlacardDetailView', {id: item.id})}}
         >
             <View style={[styles.card]}>
                 <Image
