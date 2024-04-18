@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     StyleSheet,
     View,
@@ -17,6 +17,7 @@ import {DiConstants, inject} from "../../di/di";
 import {IPlacardDetailViewModel, PlacardDetailViewmodel} from "../viewmodels/placard-detail.viewmodel";
 import Placard from "../../domain/models/placard";
 import Image = Animated.Image;
+import Favorite from "../components/favorite";
 
 
 
@@ -32,7 +33,6 @@ const PlacardDetailView = (
     // const id = route?.params?.id
     // const queryClient = route?.params?.queryClient
     const {id} = route.params
-    const [placard, setPlacard] = React.useState<Placard>()
     const BackIcon = (props:any) => (
         <Icon {...props} name='arrow-back' />
     );
@@ -51,6 +51,22 @@ const PlacardDetailView = (
         queryClient
     )
 
+    const renderImageSection = () => {
+        return (
+            <View
+                style={{width: '100%', height: 230}}>
+                <Image
+                    style={[styles.image]}
+                    resizeMode="cover"
+                    source={{ uri: data?.download_url?? "" }}
+                />
+                <View style={{position: 'absolute', top: 10, right: 10}}>
+                    <Favorite k={id}/>
+                </View>
+            </View>
+        );
+    };
+
     return (
         <Layout style={{ flex: 1,
             justifyContent: 'space-between',
@@ -67,11 +83,12 @@ const PlacardDetailView = (
                         You clicked { id?? ""}
                     </Text>
                     <View style={styles.container}>
-                        <Image
-                            style={[styles.image]}
-                            resizeMode="cover"
-                            source={{ uri: data?.download_url?? "" }}
-                        />
+                        {/*<Image*/}
+                        {/*    style={[styles.image]}*/}
+                        {/*    resizeMode="cover"*/}
+                        {/*    source={{ uri: data?.download_url?? "" }}*/}
+                        {/*/>*/}
+                        {renderImageSection()}
                         <Text style={[styles.header]}>
                             {data?.author}
                         </Text>

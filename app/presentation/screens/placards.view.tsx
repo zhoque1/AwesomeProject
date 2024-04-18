@@ -12,6 +12,7 @@ import {IPlacardsViewModel} from "../viewmodels/placards.viewmodel";
 import {QueryConstants} from "../../di/query-contants";
 import Placard from "../../domain/models/placard";
 import Image = Animated.Image;
+import Favorite from "../components/favorite";
 
 
 
@@ -157,6 +158,11 @@ const RenderPlacard = memo(({ item , navigation}: { item: Placard, navigation: a
                     resizeMode="cover"
                     source={{ uri: item.download_url?? "" }}
                 />
+                <View style={{position: 'absolute', top: 10, right: 10}}>
+                    <Favorite
+                        k={item.id}
+                    />
+                </View>
                 <View style={{ margin: 16 }}>
                     <Text
                         style={{
