@@ -9,7 +9,7 @@ import {GetPlacardDetailUsecase} from "../domain/usecases/get-placard-detail.use
 import {PlacardDetailViewmodel} from "../presentation/viewmodels/placard-detail.viewmodel";
 import {FavoritesRepository} from "../data/repositories/favorites.repository";
 import {FavoritesUsecase} from "../domain/usecases/favorites.usecase";
-import {FavoritesViewmodel} from "../presentation/viewmodels/favorites.viewmodel";
+import {FavoritesViewmodel} from "../presentation/viewmodels/favoritesViewmodel";
 
 const DiConstants = {
     API: 'api',

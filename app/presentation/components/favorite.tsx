@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Alert, Button, Text, TouchableOpacity, View} from 'react-native';
 import FavoriteIcon from '../../assets/images/favorite.svg'
 import FavoriteSelectedIcon from '../../assets/images/favorite_selected.svg'
-import {IFavoritesViewmodel} from "../viewmodels/favorites.viewmodel";
+import {IFavoritesViewmodel} from "../viewmodels/favoritesViewmodel";
 import {DiConstants, inject} from "../../di/di";
 import {useFavorite} from "../../hooks/useFavorite";
 
@@ -12,10 +12,9 @@ const favoritesViewModel = inject<IFavoritesViewmodel>(
 
 const Favorite = ({k}: {k: number}) => {
     // console.log("many times")
-    const favorites = useFavorite((state) => state.favorites2)
-    const isFavorite = (favorites?.indexOf(k)?? 0) >= 0;
+    const favorites = useFavorite((state) => state.favorites)
+    const isFavorite = favoritesViewModel.isFavorite(k, favorites)
 
-    // console.log("favorites list are = "+ JSON.stringify(favorites))
     const onPress = () => {
         if (isFavorite) {
             favoritesViewModel.removeFavorite(k).then()
