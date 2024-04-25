@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Alert, Button, Text, TouchableOpacity, View} from 'react-native';
 import FavoriteIcon from '../../assets/images/favorite.svg'
 import FavoriteSelectedIcon from '../../assets/images/favorite_selected.svg'
-import {IFavoritesViewmodel} from "../viewmodels/favoritesViewmodel";
+import {IFavoritesViewmodel} from "../viewmodels/favorites.viewmodel";
 import {DiConstants, inject} from "../../di/di";
 // import {useFavorite} from "../../hooks/useFavorite";
 

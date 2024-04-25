@@ -1,20 +1,23 @@
-import React, {Suspense, useCallback, PropsWithChildren, memo} from 'react';
+import React, {memo, Suspense} from 'react';
 import {
+    ActivityIndicator,
+    Animated,
+    FlatList,
+    SafeAreaView,
     StyleSheet,
-    View,
     Text,
-    Pressable, Button, Alert, SafeAreaView, ActivityIndicator, TouchableOpacity, Animated, FlatList,
+    TouchableOpacity,
+    View,
 } from 'react-native';
 import {Icon, Layout, List, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
-import {QueryClient, QueryClientProvider, useQuery, useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
+import {useQueryClient, useSuspenseQuery} from "@tanstack/react-query";
 import {DiConstants, inject} from "../../di/di";
 import {IPlacardsViewModel} from "../viewmodels/placards.viewmodel";
 import {QueryConstants} from "../../di/query-contants";
 import Placard from "../../domain/models/placard";
-import Image = Animated.Image;
 import Favorite from "../components/favorite";
-
-
+import style from '../components/styles'
+import Image = Animated.Image;
 
 
 const placardsViewModel = inject<IPlacardsViewModel>(
@@ -145,6 +148,17 @@ const LoadingData = () => {
     );
 };
 
+const generateYear = () => {
+    const min = 1900;
+    const max = 2024;
+    return Math.floor(Math.random() * (max - min + 1)) + min
+};
+const generateSpace = () => {
+    const min = 0.5;
+    const max = 5.0;
+    return Math.floor(Math.random() * (max - min + 1)) + min
+};
+
 const RenderPlacard = memo(({ item , navigation}: { item: Placard, navigation: any }) => {
     return (
         <TouchableOpacity
@@ -164,13 +178,22 @@ const RenderPlacard = memo(({ item , navigation}: { item: Placard, navigation: a
                     />
                 </View>
                 <View style={{ margin: 16 }}>
-                    <Text
-                        style={{
-                            marginTop: 10,
-                            fontSize: 21,
-                            fontWeight: '700',
-                        }}>
-                        {item.author}{item.id}
+                    {/*<Text*/}
+                    {/*    style={{*/}
+                    {/*        marginTop: 10,*/}
+                    {/*        fontSize: 21,*/}
+                    {/*        fontWeight: '700',*/}
+                    {/*    }}>*/}
+                    {/*    {item.author}{item.id}*/}
+                    {/*</Text>*/}
+                    <Text style={style.placardText}>
+                        {generateSpace()}% Cap Rate
+                    </Text>
+                    <Text style={style.placardText}>
+                        {generateSpace()} AC Lot
+                    </Text>
+                    <Text style={style.placardText}>
+                        Investment Opportunity
                     </Text>
                 </View>
             </View>
