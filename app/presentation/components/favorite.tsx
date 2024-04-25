@@ -4,7 +4,7 @@ import FavoriteIcon from '../../assets/images/favorite.svg'
 import FavoriteSelectedIcon from '../../assets/images/favorite_selected.svg'
 import {IFavoritesViewmodel} from "../viewmodels/favoritesViewmodel";
 import {DiConstants, inject} from "../../di/di";
-import {useFavorite} from "../../hooks/useFavorite";
+// import {useFavorite} from "../../hooks/useFavorite";
 
 const favoritesViewModel = inject<IFavoritesViewmodel>(
     DiConstants.FAVORITE_VIEW_MODEL
@@ -12,8 +12,7 @@ const favoritesViewModel = inject<IFavoritesViewmodel>(
 
 const Favorite = ({k}: {k: number}) => {
     // console.log("many times")
-    const favorites = useFavorite((state) => state.favorites)
-    const isFavorite = favoritesViewModel.isFavorite(k, favorites)
+    const isFavorite = favoritesViewModel.isFavorite(k)
 
     const onPress = () => {
         if (isFavorite) {

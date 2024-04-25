@@ -8,7 +8,7 @@ export interface IFavoritesUseCaseProps{
 export interface IFavoritesViewmodel{
     addFavorite(key: number): Promise<void | null>
     removeFavorite(key: number): Promise<void | null>
-    isFavorite(k: number, favorites: number[]): boolean
+    isFavorite(k: number): boolean
 }
 export const FavoritesViewmodel = (
     {
@@ -39,8 +39,8 @@ export const FavoritesViewmodel = (
         return favoritesUseCase.remove(key)
     }
 
-    const isFavorite = (k: number, favorites: number[])=>{
-        // const temp = myFavorite.getState().favorites
+    const isFavorite = (k: number)=>{
+        const [favorites] = useFavorite(state =>[state.favorites])
         const index = favorites.indexOf(k)
         return index !== -1;
     }
