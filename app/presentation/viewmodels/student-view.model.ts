@@ -1,5 +1,3 @@
-import {IFavoritesUsecase} from "../../domain/usecases/favorites.usecase";
-import {IFavorites, useFavorite} from "../../hooks/useFavorite";
 import {IStudentUsecase} from "../../domain/usecases/student-use.case";
 
 
