@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import BookComponent from "../components/book-component";
 import {Divider, TopNavigation} from "@ui-kitten/components";
+import StudentComponent from "../components/student-component";
 
 
 const ScreenB = ({ navigation }: {navigation:any}) => {
@@ -43,6 +44,7 @@ const ScreenB = ({ navigation }: {navigation:any}) => {
 
                 />
                 <BookComponent/>
+                <StudentComponent/>
                 <Pressable
                     onPress={onPressHandler}
                     style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}

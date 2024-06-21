@@ -10,6 +10,9 @@ import {PlacardDetailViewmodel} from "../presentation/viewmodels/placard-detail.
 import {FavoritesRepository} from "../data/repositories/favorites.repository";
 import {FavoritesUsecase} from "../domain/usecases/favorites.usecase";
 import {FavoritesViewmodel} from "../presentation/viewmodels/favorites.viewmodel";
+import {StudentRepository} from "../data/repositories/student.repository";
+import {StudentUsecase} from "../domain/usecases/student-use.case";
+import {StudentViewModel} from "../presentation/viewmodels/student-view.model";
 
 const DiConstants = {
     API: 'api',
@@ -24,6 +27,10 @@ const DiConstants = {
     FAVORITES_REPOSITORY: 'favoritesRepository',
     FAVORITES_USE_CASE: 'favoritesUseCase',
     FAVORITE_VIEW_MODEL: 'favoritesViewModel',
+
+    STUDENT_REPOSITORY: 'studentRepository',
+    STUDENT_USE_CASE: 'studentUseCase',
+    STUDENT_VIEW_MODEL: 'studentViewModel',
 }
 
 const injectionContainer = createContainer({injectionMode: InjectionMode.PROXY})
@@ -40,6 +47,10 @@ injectionContainer.register({
     [DiConstants.FAVORITES_REPOSITORY]: asFunction(FavoritesRepository).singleton(),
     [DiConstants.FAVORITES_USE_CASE]: asFunction(FavoritesUsecase).singleton(),
     [DiConstants.FAVORITE_VIEW_MODEL]: asFunction(FavoritesViewmodel).singleton(),
+
+    [DiConstants.STUDENT_REPOSITORY]: asFunction(StudentRepository).singleton(),
+    [DiConstants.STUDENT_USE_CASE]: asFunction(StudentUsecase).singleton(),
+    [DiConstants.STUDENT_VIEW_MODEL]: asFunction(StudentViewModel).singleton(),
 
 })
 
