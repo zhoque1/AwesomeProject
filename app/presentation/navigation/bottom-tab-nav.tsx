@@ -3,12 +3,15 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {BottomNavigation, BottomNavigationTab, Icon, useTheme} from "@ui-kitten/components";
 import t from "../../i18n/18n";
 import {ScreenANav} from "./screen-a-nav";
+import React from "react";
+import {UserContext} from "../../contexts/userContext";
 
 
 const BottomTabs = createBottomTabNavigator();
 
 const BottomTabNav = () => {
     const theme = useTheme();
+    const {user} = React.useContext(UserContext);
 
     const geIcon = (name: string) => <Icon name={name} style={{ width: 18, height: 18 }} />;
 

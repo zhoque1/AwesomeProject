@@ -46,6 +46,14 @@ const ScreenA = ({ navigation }: { navigation:any }) => {
                         Screen C with bottom tab
                     </Text>
                 </Pressable>
+                <Pressable
+                    onPress={()=>{navigation.navigate('Carousel')}}
+                    style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
+                >
+                    <Text style={styles.text}>
+                        Carousel Demo
+                    </Text>
+                </Pressable>
             </View>
         </SafeAreaView>
     )

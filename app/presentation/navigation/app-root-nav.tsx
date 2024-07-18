@@ -30,10 +30,12 @@ export const StackNav = () => (
         <Screen name='SettingsView' component={SettingsView} />
     </Navigator>
 );
-const AppRootNav = () => (
-    <NavigationContainer>
-        <StackNav />
-    </NavigationContainer>
-);
+const AppRootNav = () => {
+    return (
+        <NavigationContainer>
+            <StackNav />
+        </NavigationContainer>
+    )
+}
 
 export default AppRootNav
