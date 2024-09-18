@@ -9,10 +9,15 @@ import {TopNavigation} from "@ui-kitten/components";
 
 
 type GreetingProps = {
-    firstName: string;
+    contact: IInboxItem
 };
 
-const Greeting = (props: GreetingProps) => {
+type IInboxItem = {
+    id: number;
+    name: string;
+}
+
+const Greeting1 = (props: GreetingProps) => {
     const [count, setCount] = useState(0);
 
     return (
@@ -22,11 +27,42 @@ const Greeting = (props: GreetingProps) => {
                     setCount(count + 1);
                     console.log('clicked');
                 }}>
-                You clicked {props.firstName} {count} times
+                You clicked {props.contact.name} {count} times
             </Text>
         </View>
     );
 };
+const Greeting2 = (item: IInboxItem) => {
+    const [count, setCount] = useState(0);
+
+    return (
+        <View style={styles.greeting}>
+            <Text
+                onPress={() => {
+                    setCount(count + 1);
+                    console.log('clicked');
+                }}>
+                You clicked {item.name} {count} times
+            </Text>
+        </View>
+    );
+};
+const Greeting3 = ({id, name}:{id:number, name:string}) => {
+    const [count, setCount] = useState(0);
+
+    return (
+        <View style={styles.greeting}>
+            <Text
+                onPress={() => {
+                    setCount(count + 1);
+                    console.log('clicked');
+                }}>
+                You clicked {name} {count} times
+            </Text>
+        </View>
+    );
+};
+
 const ScreenA = ({ navigation }: { navigation:any }) => {
     const onPressHandler = () => {
         navigation.navigate('ScreenC');
@@ -35,9 +71,9 @@ const ScreenA = ({ navigation }: { navigation:any }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <TopNavigation title={'ScreenA'} alignment="center" />
             <View style={styles.container}>
-                <Greeting firstName="Rexxar AA" />
-                <Greeting firstName="Jaina BB" />
-                <Greeting firstName="Valeera CC" />
+                <Greeting1 contact={{id: 1, name: "Rower AA"}}/>
+                <Greeting2 id={2} name={"Jain BB"} />
+                <Greeting3 id={3} name={"Valera CC"} />
                 <Pressable
                     onPress={onPressHandler}
                     style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}

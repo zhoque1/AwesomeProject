@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import BookComponent from "../components/book-component";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
+import QRCode from "react-qr-code";
 
 
 
@@ -41,6 +42,9 @@ const ScreenC = ({ navigation }: { navigation:any }) => {
                             Click Here
                         </Text>
                     </TouchableOpacity>
+                    <QRCode
+                        value="http://awesome.link.qr"
+                    />
                 </View>
             </SafeAreaView>
         </Layout>
