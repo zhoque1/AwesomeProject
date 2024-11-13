@@ -47,7 +47,7 @@ const Greeting2 = (item: IInboxItem) => {
         </View>
     );
 };
-const Greeting3 = ({id, name}:{id:number, name:string}) => {
+const Greeting3 = ({localId, localName}:{localId:number, localName:string}) => {
     const [count, setCount] = useState(0);
 
     return (
@@ -57,7 +57,7 @@ const Greeting3 = ({id, name}:{id:number, name:string}) => {
                     setCount(count + 1);
                     console.log('clicked');
                 }}>
-                You clicked {name} {count} times
+                You clicked {localName} {count} times
             </Text>
         </View>
     );
@@ -73,7 +73,7 @@ const ScreenA = ({ navigation }: { navigation:any }) => {
             <View style={styles.container}>
                 <Greeting1 contact={{id: 1, name: "Rower AA"}}/>
                 <Greeting2 id={2} name={"Jain BB"} />
-                <Greeting3 id={3} name={"Valera CC"} />
+                <Greeting3 localId={3} localName={"Valera CC"} />
                 <Pressable
                     onPress={onPressHandler}
                     style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
