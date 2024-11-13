@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import BookComponent from "../components/book-component";
 import {Icon, Layout, TopNavigation, TopNavigationAction} from "@ui-kitten/components";
-import QRCode from "react-qr-code";
+// import QRCode from "react-qr-code";
+import QRCode from 'react-native-qrcode-svg';
 
 
 
@@ -43,8 +44,18 @@ const ScreenC = ({ navigation }: { navigation:any }) => {
                         </Text>
                     </TouchableOpacity>
                     <QRCode
-                        value="http://awesome.link.qr"
+                        value='https://www.loopnet.com/Listing/1499-Ridgecrest-St-Monterey-Park-CA/28433604/'
+                        size={250}
+                        color="black"
+                        backgroundColor="white"
+                        logo={require('../../assets/images/static_map.png')}
+                        logoSize={60}
+                        logoMargin={2}
+                        logoBorderRadius={15}
+                        logoBackgroundColor="yellow"
                     />
+                    
+
                 </View>
             </SafeAreaView>
         </Layout>
