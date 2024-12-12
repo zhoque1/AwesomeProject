@@ -90,10 +90,29 @@ const ScreenA = ({ navigation }: { navigation:any }) => {
                         Carousel Demo
                     </Text>
                 </Pressable>
+                <Pressable
+                    onPress={()=>{navigation.navigate('ScreenPieChart',{props:undefined})}}
+                    style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
+                >
+                    <Text style={styles.text}>
+                        Pie Chart Demo
+                    </Text>
+                </Pressable>
+                <Pressable
+                    onPress={()=>{navigation.navigate('ScreenVictoryPie',{props:undefined})}}
+                    style={({ pressed }) => ({ backgroundColor: pressed ? '#ddd' : '#0f0' })}
+                >
+                    <Text style={styles.text}>
+                        Victory Pie Chart Demo
+                    </Text>
+                </Pressable>
             </View>
         </SafeAreaView>
     )
 }
+
+export default ScreenA;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -111,5 +130,3 @@ const styles = StyleSheet.create({
         margin: 10,
     }
 });
-
-export default ScreenA;
